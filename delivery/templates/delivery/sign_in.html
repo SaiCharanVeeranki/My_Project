@@ -1,0 +1,11 @@
+<form method="POST" action="{% url 'delivery:handle_signin' %}">
+    {% csrf_token %}
+    
+    <label>Username:</label>
+    <input type="text" name="username" required><br><br>
+
+    <label>Password:</label>
+    <input type="password" name="password" required><br><br>
+
+    <button type="Sign In">Sign In</button>
+</form>

@@ -1,0 +1,43 @@
+{% extends 'delivery/base.html' %}
+{% block content %}
+<table border="1">
+    <tr>
+        <th>Restarunt Name</th>
+        <th>Category</th>
+        <th>Rating</th>
+        <th>Image</th>
+        <th>Address</th>
+        <th>Actions</th>
+        <th>View Menu</th>
+    </tr>
+    {% for item in li %}
+    <tr>
+        <td>{{ item.res_name }}</td>
+        <td>{{ item.Food_cat }}</td>
+        <td>{{ item.rating }}</td>
+        <td>
+            <img
+            src="{{ item.img }}"
+            alt="Restarunt Image"
+            height="100"
+            width="100"
+            />
+        </td>
+        <td>{{ item.address }}</td>
+        <td>
+            <a href="{% url 'delivery:view_menu' item.id %}">
+                <button>Update Restarunt</button>
+            </a><br>
+            <a href="{% url 'delivery:view_menu' item.id %}">
+                <button>Delete Restarunt</button>
+            </a>
+        </td>
+        <td>
+            <a href="{% url 'delivery:view_menu' item.id %}">
+                <button>View Menu</button>
+            </a><br>
+        </td>
+    </tr>
+    {% endfor %}   
+</table>
+{% endblock %}

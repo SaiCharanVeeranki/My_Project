@@ -1,0 +1,20 @@
+<form method="POST" action="{% url 'delivery:handle_signup' %}">
+    {% csrf_token %}
+    
+    <label>Username:</label>
+    <input type="text" name="username" required><br><br>
+
+    <label>Password:</label>
+    <input type="password" name="password" required><br><br>
+
+    <label>Email:</label>
+    <input type="email" name="email" required><br><br>
+
+    <label>Mobile Number:</label>
+    <input type="mobile" name="mobile" required><br><br>
+
+    <label>Address:</label>
+    <input type="address" name="address" required><br><br>
+
+    <button >Sign Up</button>
+</form>

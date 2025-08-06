@@ -1,0 +1,43 @@
+{% extends 'delivery/cus_base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Menu - {{res.res_name}}</title>
+    </head>
+    <body>
+        <h2>Menu for {{res.res_name}}</h2>
+        <p>Address: {{res.address}}</p>
+        <p>Category: {{res.Food_cat}}</p>
+        <p>Rating: {{res.rating}}</p>
+
+        <table border="1" style="width: 100vw;">
+            <tr>
+                <th>Item Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Availability</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+            {% for item in menu %}
+            <tr>
+                <td>{{ item.item_name }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.price }}</td>
+                <td>
+                    {% if item.is_available %} Available {% else %} Not Available {% endif %}
+                </td>
+                <td>{{ item.category }}</td>
+                <td>
+                    <form method="POST" action="{}">
+                        {% csrf_token %}
+                        <button type="submit">Add to Cart</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
+{% endblock %}

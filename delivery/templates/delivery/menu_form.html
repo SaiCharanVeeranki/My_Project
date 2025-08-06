@@ -1,0 +1,19 @@
+{% extends 'delivery/base.html' %}
+{% block content %}
+<div style="margin-top: 50px; max-width: 600px; margin: auto;">
+    <h2>Add Menu Item</h2>
+    
+    <!-- Show restaurant name and info -->
+    <div style="margin-bottom: 20px;">
+        <strong>Restaurant:</strong> {{ res.res_name }} <br>
+        <strong>Address:</strong> {{ res.address }} <br>
+    </div>
+
+    <!-- The actual form -->
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}
