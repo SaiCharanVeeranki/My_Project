@@ -1,5 +1,56 @@
-{% extends 'delivery/cus_base.html' %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meal Mate</title>
+    <style>
+        /* Internal CSS for the navigation bar */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #343a40;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffc107;
+            text-decoration: none;
+        }
+
+        .navbar .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'delivery:index' %}" class="logo">Meal Mate</a>
+        <div class="nav-links">
+            <a href="{% url 'delivery:cusdisplay_res' username %}">View Restaurants</a>
+            <a href="{% url 'delivery:sign_in' %}">Sign In</a>
+            <a href="{% url 'delivery:sign_up' %}">Sign Up</a>
+        </div>
+    </div>
+</body>
+</html>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,6 +61,7 @@
         <p>Address: {{res.address}}</p>
         <p>Category: {{res.Food_cat}}</p>
         <p>Rating: {{res.rating}}</p>
+        <a href="{% url 'delivery:show_cart' username %}">Show Cart</a>
 
         <table border="1" style="width: 100vw;">
             <tr>
@@ -30,9 +82,9 @@
                 </td>
                 <td>{{ item.category }}</td>
                 <td>
-                    <form method="POST" action="{}">
+                    <form method="POST" action="{% url 'delivery:add_cart' item.id username %}">
                         {% csrf_token %}
-                        <button type="submit">Add to Cart</button>
+                        <button type="submit" onclick="return confirm('Are you sure you want to add to cart?')">Add to Cart</button>
                     </form>
                 </td>
             </tr>
@@ -40,4 +92,3 @@
         </table>
     </body>
 </html>
-{% endblock %}

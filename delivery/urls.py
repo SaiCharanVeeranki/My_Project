@@ -12,8 +12,13 @@ urlpatterns = [
     path('display_res/',views.display_res, name='display_res'),
     path('view_menu/<int:id>/',views.view_menu, name = 'view_menu'),
     path('add_menu/<int:id>',views.add_menu, name = 'add_menu'),
-    path('delete_menu/<int:id>',views.delete_menu, name = 'delete_menu'),
-    path('cusdisplay_res/', views.cusdisplay_res, name = 'cusdisplay_res'),
-    path('cusmenu/<int:id>', views.cusmenu,name = 'cusmenu')
+    path('delete_menu/<int:id>/',views.delete_menu, name = 'delete_menu'),
+    path('cusdisplay_res/<str:username>/', views.cusdisplay_res, name = 'cusdisplay_res'),
+    path('cusmenu/<int:id>/<str:username>/', views.cusmenu,name = 'cusmenu'),
+    path('update_restarunt/<int:id>/',views.update_restarunt, name = 'update_restarunt'),
+    path('delete_restarunt/<int:id>/',views.delete_restarunt,name = 'delete_restarunt'),
+    path('show_cart/<str:username>/',views.show_cart,name = 'show_cart'),
+    path('add_cart/<int:id>/<str:username>', views.add_cart,name = 'add_cart'),
+    path('checkout/<str:username>', views.checkout,name = 'checkout'),
+    path('orders/<str:username>', views.orders,name = 'orders'),
 ]
-

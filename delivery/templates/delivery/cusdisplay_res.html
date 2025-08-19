@@ -1,5 +1,58 @@
-{% extends 'delivery/cus_base.html' %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Meal Mate</title>
+    <style>
+        /* Internal CSS for the navigation bar */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #343a40;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffc107;
+            text-decoration: none;
+        }
+
+        .navbar .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'delivery:index' %}" class="logo">Meal Mate</a>
+        <div class="nav-links">
+            <a href="{% url 'delivery:cusdisplay_res' username %}">View Restaurants</a>
+            <a href="{% url 'delivery:sign_in' %}">Sign In</a>
+            <a href="{% url 'delivery:sign_up' %}">Sign Up</a>
+        </div>
+    </div>
+</body>
+</html>
+<div style="margin-top: 50px;"></div>
+<h1>Hii {{username}} Explore the Restarunts.....</h1>
 <table border="1">
     <tr>
         <th>Restarunt Name</th>
@@ -24,11 +77,10 @@
         </td>
         <td>{{ item.address }}</td>
         <td>
-            <a href="{% url 'delivery:cusmenu' item.id %}">
+            <a href="{% url 'delivery:cusmenu' item.id username %}">
                 <button>View Menu</button>
             </a>
         </td>
     </tr>
     {% endfor %}   
 </table>
-{% endblock %}

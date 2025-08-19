@@ -44,13 +44,28 @@
     <div class="navbar">
         <a href="{% url 'delivery:index' %}" class="logo">Meal Mate</a>
         <div class="nav-links">
-            <a href="{% url 'delivery:cusdisplay_res' %}">View Restaurants</a>
+            <a href="{% url 'delivery:cusdisplay_res' username %}">View Restaurants</a>
             <a href="{% url 'delivery:sign_in' %}">Sign In</a>
             <a href="{% url 'delivery:sign_up' %}">Sign Up</a>
         </div>
     </div>
+    <div class="cart-container">
+      <h3>Your Cart</h3>
+      {% if items %}
+      <ul>
+        {% for item in items %}
+        <li>{{ item.item_name }} - ${{ item.price }}</li>
+        {% endfor %}
+      </ul>
+      <p><strong>Total Price:</strong> ${{ total_price }}</p>
 
-    {% block content %}
-    {% endblock %}
+      <!-- Checkout Button -->
+      <a href="{%url 'delivery:checkout' username %}" class="checkout-btn"
+        >Proceed to Checkout</a
+      >
+      {% else %}
+      <p>Your cart is empty.</p>
+      {% endif %}
+    </div>
 </body>
 </html>

@@ -34,3 +34,18 @@ class Menu(models.Model):
 
     def __str__(self):
         return f"{self.item_name} - {self.res.res_name}"
+
+
+class Cart(models.Model):
+    customer = models.ForeignKey( 
+        Customers,
+        on_delete=models.CASCADE
+    )
+    items = models.ManyToManyField('Menu')
+
+    def total_price(self):
+        return sum(item.price for item in self.items.all())
+    
+    def __str__(self):
+        return f"{self.customers.username} {self.total_price()}"
+    

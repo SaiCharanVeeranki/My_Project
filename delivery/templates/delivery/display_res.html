@@ -1,5 +1,6 @@
-{% extends 'delivery/base.html' %}
-{% block content %}
+
+<div style="margin-top: 50px;"></div>
+<h1> Hii {{ username }} Explore the Restarunts...</h1>
 <table border="1">
     <tr>
         <th>Restarunt Name</th>
@@ -25,10 +26,11 @@
         </td>
         <td>{{ item.address }}</td>
         <td>
-            <a href="{% url 'delivery:view_menu' item.id %}">
+            <a href="{% url 'delivery:update_restarunt' item.id %}">
                 <button>Update Restarunt</button>
             </a><br>
-            <a href="{% url 'delivery:view_menu' item.id %}">
+            <a href="{% url 'delivery:delete_restarunt' item.id %}"
+                onclick="return confirm('Are you sure you want to delet this restarunt?');">
                 <button>Delete Restarunt</button>
             </a>
         </td>
@@ -40,4 +42,3 @@
     </tr>
     {% endfor %}   
 </table>
-{% endblock %}
