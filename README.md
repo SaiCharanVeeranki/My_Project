@@ -41,3 +41,33 @@ MealMate is a **Django-based web application** that allows users to register as 
    ```bash
    git clone https://github.com/your-username/mealmate.git
    cd mealmate
+
+
+## Set Up a Virtual Environment
+
+python -m venv venv
+venv\Scripts\activate    # On Windows
+source venv/bin/activate # On Mac/Linux
+
+
+Install Dependencies
+
+pip install -r requirements.txt
+
+
+Apply Migrations
+
+python manage.py migrate
+
+
+Create a Superuser
+
+python manage.py createsuperuser
+
+
+Run the Development Server
+
+python manage.py runserver
+
+
+Now open your browser at 👉 http://127.0.0.1:8000/
