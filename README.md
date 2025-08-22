@@ -72,7 +72,16 @@ MealMate is a **Django-based web application** that allows users to register as 
 ***Now open your browser at 👉 http://127.0.0.1:8000/***
 
 
+***💳 Razorpay Payment Integration***
 
+1. ***Sign up at Razorpay***
+
+2. ***Get your API keys from the Razorpay Dashboard***
+
+3. ***Add them to your Django settings.py:***
+    ```bash
+   RAZORPAY_KEY_ID = "your_key_id"
+   RAZORPAY_KEY_SECRET = "your_key_secret"
 
 
 ***📌 Key Learnings***
