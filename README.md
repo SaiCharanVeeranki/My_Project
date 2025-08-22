@@ -73,51 +73,6 @@ MealMate is a **Django-based web application** that allows users to register as 
 
 
 
-***📂 Project Structure***
-MealMate/
-│── MealMate/
-│   │── __pycache__/
-│   │── __init__.py
-│   │── asgi.py
-│   │── settings.py
-│   │── urls.py
-│   │── wsgi.py
-│
-│── delivery/
-│   │── __pycache__/
-│   │── migrations/
-│   │── static/delivery/css/
-│   │── templates/delivery/
-│   │   ├── Failed.html
-│   │   ├── add_res.html
-│   │   ├── base.html
-│   │   ├── checkout.html
-│   │   ├── cusdisplay_res.html
-│   │   ├── cusmenu.html
-│   │   ├── display_res.html
-│   │   ├── index.html
-│   │   ├── menu.html
-│   │   ├── menu_form.html
-│   │   ├── orders.html
-│   │   ├── show_cart.html
-│   │   ├── sign_in.html
-│   │   ├── sign_up.html
-│   │   ├── success.html
-│   │   ├── update_res.html
-│   │   ├── userdata.html
-│   │── __init__.py
-│   │── admin.py
-│   │── apps.py
-│   │── forms.py
-│   │── models.py
-│   │── tests.py
-│   │── urls.py
-│   │── views.py
-│
-│── db.sqlite3
-│── manage.py
-│── requirements.txt
-
 
 
 ***📌 Key Learnings***
