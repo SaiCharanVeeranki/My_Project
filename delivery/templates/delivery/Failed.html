@@ -1,5 +1,28 @@
-{% extends 'delivery/base.html' %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
-{% block content %}
-<h3>Log In Failed</h3>
-{% endblock %}
+<div style="
+    max-width: 380px; 
+    margin: 100px auto; 
+    text-align: center; 
+    background: #fff; 
+    padding: 35px 25px; 
+    border-radius: 12px; 
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    font-family: 'Poppins', sans-serif;">
+    
+    <h3 style="color: #e63946; margin-bottom: 12px; font-size: 20px; font-weight: 600;">
+        ⚠️ Log In Failed
+    </h3>
+    
+    <p style="color: #555; font-size: 15px; margin-bottom: 22px; line-height: 1.5;">
+        Invalid username or password.<br>
+        Please try again.
+    </p>
+
+    <a href="{% url 'delivery:handle_signin' %}" 
+       style="display: inline-block; padding: 10px 20px; background: #6d5df6; 
+              color: #fff; text-decoration: none; border-radius: 8px; font-weight: 500; 
+              transition: background 0.3s;">
+        Back to Login
+    </a>
+</div>

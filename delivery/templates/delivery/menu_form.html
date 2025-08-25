@@ -1,19 +1,142 @@
 {% extends 'delivery/base.html' %}
 {% block content %}
-<div style="margin-top: 50px; max-width: 600px; margin: auto;">
-    <h2>Add Menu Item</h2>
-    
-    <!-- Show restaurant name and info -->
-    <div style="margin-bottom: 20px;">
-        <strong>Restaurant:</strong> {{ res.res_name }} <br>
-        <strong>Address:</strong> {{ res.address }} <br>
+<style>
+  /* Page background like your Sign In: soft teal → blue → purple */
+  .gradient-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #9ae6b4 0%, #8fd3f4 50%, #b8a1ff 100%);
+    display: grid;
+    place-items: start center;   /* sits below the navbar nicely */
+    padding: 56px 16px;          /* equal outer padding */
+  }
+
+  /* Compact centered card with equal left/right padding */
+  .form-card {
+    width: 100%;
+    max-width: 460px;            /* smaller size */
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 18px 45px rgba(0,0,0,.12);
+    padding: 28px 28px;          /* ✅ equal sides */
+  }
+
+  .form-title {
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    color: #1f2937;
+    margin: 6px 0 18px;
+  }
+
+  .rest-info {
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    color: #4b5563;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+  }
+
+  .field { margin-bottom: 14px; }
+
+  .field label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #374151;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+    color: #111827;
+    transition: border-color .2s, box-shadow .2s;
+  }
+
+  .field textarea { min-height: 110px; resize: vertical; }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: #7c6cff;               /* soft purple */
+    box-shadow: 0 0 0 3px rgba(124,108,255,.15);
+    outline: none;
+  }
+
+  /* Checkbox row */
+  .check-row { display: flex; align-items: center; gap: 10px; }
+  .check-row input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: #6d5df6;               /* matches button */
+  }
+
+  /* Primary action */
+  .btn-primary {
+    width: 100%;
+    padding: 12px 14px;
+    border: none;
+    border-radius: 12px;
+    background: #6d5df6;                 /* muted purple */
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: transform .1s, box-shadow .2s, background .2s;
+  }
+  .btn-primary:hover {
+    background: #5b4cf2;
+    box-shadow: 0 8px 18px rgba(109,93,246,.25);
+  }
+  .btn-primary:active { transform: translateY(1px); }
+</style>
+
+<div class="gradient-page">
+  <div class="form-card">
+    <div class="form-title">➕ Add Menu Item</div>
+
+    <div class="rest-info">
+      <strong>Restaurant:</strong> {{ res.res_name }}<br>
+      <strong>Address:</strong> {{ res.address }}
     </div>
 
-    <!-- The actual form -->
     <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
+      {% csrf_token %}
+
+      <div class="field">
+        {{ form.item_name.label_tag }}
+        {{ form.item_name }}
+      </div>
+
+      <div class="field">
+        {{ form.description.label_tag }}
+        {{ form.description }}
+      </div>
+
+      <div class="field">
+        {{ form.price.label_tag }}
+        {{ form.price }}
+      </div>
+
+      <div class="field check-row">
+        {{ form.is_available }}
+        {{ form.is_available.label_tag }}
+      </div>
+
+      <div class="field">
+        {{ form.category.label_tag }}
+        {{ form.category }}
+      </div>
+
+      <button type="submit" class="btn-primary">Submit</button>
     </form>
+  </div>
 </div>
 {% endblock %}

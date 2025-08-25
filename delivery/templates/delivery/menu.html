@@ -1,47 +1,136 @@
 {% extends 'delivery/base.html' %}
 {% block content %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Menu - {{res.res_name}}</title>
-    </head>
-    <body>
-        <h2>Menu for {{res.res_name}}</h2>
-        <p>Address: {{res.address}}</p>
-        <p>Category: {{res.Food_cat}}</p>
-        <p>Rating: {{res.rating}}</p>
+<style>
+    .menu-container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 20px;
+        font-family: "Segoe UI", Roboto, sans-serif;
+    }
 
-        <table border="1" style="width: 100vw;">
-            <tr>
-                <th>Item Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Availability</th>
-                <th>Category</th>
-                <th>Action</th>
-            </tr>
-            {% for item in menu %}
-            <tr>
-                <td>{{ item.item_name }}</td>
-                <td>{{ item.description }}</td>
-                <td>{{ item.price }}</td>
-                <td>
-                    {% if item.is_available %} Available {% else %} Not Available {% endif %}
-                </td>
-                <td>{{ item.category }}</td>
-                <td>
-                    <a href="{% url 'delivery:delete_menu' item.id %}"
-                        onclick="return confirm('Are you sure you want to delete this item?');">
-                        <button>Delete</button>
-                    </a>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-        <br  >
-        <a href="{% url 'delivery:add_menu' res.id %}">
-            <button>Add Menu</button>
-        </a>
-    </body>
-</html>
+    /* Restaurant Header Card */
+    .res-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        padding: 25px;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        margin-bottom: 35px;
+        text-align: center;
+    }
+
+    .res-card h2 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #222;
+    }
+
+    .res-details p {
+        margin: 5px 0;
+        font-size: 15px;
+        color: #555;
+    }
+
+    /* Table */
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 12px;
+    }
+
+    th {
+        background: #f8fafc;
+        padding: 14px;
+        text-align: left;
+        font-size: 15px;
+        color: #444;
+        font-weight: 600;
+    }
+
+    td {
+        background: #fff;
+        padding: 14px;
+        font-size: 14px;
+        color: #333;
+        border-radius: 10px;
+    }
+
+    tr {
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    tr:hover td {
+        background: #f1f5f9;
+        transition: 0.25s;
+    }
+
+    /* Buttons */
+    .btn {
+        padding: 8px 16px;
+        border-radius: 25px;
+        font-size: 13px;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-delete {
+        background: linear-gradient(135deg, #e63946, #d62828);
+        color: #fff;
+    }
+    .btn-delete:hover { transform: scale(1.05); }
+
+    .btn-add {
+        background: linear-gradient(135deg, #06b6d4, #0284c7);
+        color: #fff;
+        margin-top: 25px;
+    }
+    .btn-add:hover { transform: scale(1.05); }
+</style>
+
+<div class="menu-container">
+    <!-- Restaurant Info -->
+    <div class="res-card">
+        <h2>🍽️ {{res.res_name}}</h2>
+        <div class="res-details">
+            <p><strong>📍 Address:</strong> {{res.address}}</p>
+            <p><strong>📖 Category:</strong> {{res.Food_cat}}</p>
+            <p><strong>⭐ Rating:</strong> {{res.rating}}</p>
+        </div>
+    </div>
+
+    <!-- Menu Table -->
+    <table>
+        <tr>
+            <th>Item Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Availability</th>
+            <th>Category</th>
+            <th>Action</th>
+        </tr>
+        {% for item in menu %}
+        <tr>
+            <td>{{ item.item_name }}</td>
+            <td>{{ item.description }}</td>
+            <td>₹ {{ item.price }}</td>
+            <td>{% if item.is_available %} ✅ Available {% else %} ❌ Not Available {% endif %}</td>
+            <td>{{ item.category }}</td>
+            <td>
+                <a href="{% url 'delivery:delete_menu' item.id %}" 
+                   onclick="return confirm('Are you sure you want to delete this item?');">
+                    <button class="btn btn-delete">Delete</button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Add Menu Button -->
+    <a href="{% url 'delivery:add_menu' res.id %}">
+        <button class="btn btn-add">+ Add Menu Item</button>
+    </a>
+</div>
 {% endblock %}

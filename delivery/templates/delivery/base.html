@@ -3,44 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Meal Mate</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        /* Internal CSS for the navigation bar */
+        /* Global */
         body {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
         }
 
+        /* Navbar Styling */
         .navbar {
-            background-color: #343a40;
-            color: white;
-            padding: 15px 30px;
+            background: #fff;
+            color: #333;
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .navbar .logo {
             font-size: 24px;
-            font-weight: bold;
-            color: #ffc107;
+            font-weight: 600;
+            color: #ff4b2b;
+            letter-spacing: 0.5px;
             text-decoration: none;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 25px;
         }
 
         .navbar .nav-links a {
-            color: white;
+            color: #333;
+            font-size: 15px;
+            font-weight: 500;
+            position: relative;
             text-decoration: none;
-            margin-left: 20px;
-            font-size: 16px;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .navbar .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background: #ff4b2b;
+            transition: width 0.3s ease;
         }
 
         .navbar .nav-links a:hover {
-            color: #ffc107;
+            color: #ff4b2b;
+        }
+
+        .navbar .nav-links a:hover::after {
+            width: 100%;
         }
     </style>
 </head>
 <body>
+    <!-- Navbar -->
     <div class="navbar">
         <a href="{% url 'delivery:index' %}" class="logo">Meal Mate</a>
         <div class="nav-links">

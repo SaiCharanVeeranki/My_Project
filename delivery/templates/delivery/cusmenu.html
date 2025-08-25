@@ -1,94 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Meal Mate</title>
-    <style>
-        /* Internal CSS for the navigation bar */
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-        }
+<meta charset="UTF-8">
+<title>Menu - {{res.res_name}}</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background-color: #f9f9f9;
+        color: #333;
+    }
 
-        .navbar {
-            background-color: #343a40;
-            color: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    /* Navbar */
+    .navbar {
+        background: #fff;
+        color: #333;
+        padding: 15px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
 
-        .navbar .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ffc107;
-            text-decoration: none;
-        }
+    .navbar .logo {
+        font-size: 24px;
+        font-weight: 600;
+        color: #ff4b2b;
+        text-decoration: none;
+        letter-spacing: 0.5px;
+    }
 
-        .navbar .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            font-size: 16px;
-            transition: color 0.3s ease;
-        }
+    .navbar .nav-links {
+        display: flex;
+        gap: 25px;
+    }
 
-        .navbar .nav-links a:hover {
-            color: #ffc107;
-        }
-    </style>
+    .navbar .nav-links a {
+        color: #333;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+        position: relative; /* required for underline effect */
+        transition: all 0.3s ease;
+    }
+
+    .navbar .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 0;
+        height: 2px;
+        background: #ff4b2b;
+        transition: width 0.3s ease;
+    }
+
+    .navbar .nav-links a:hover {
+        color: #ff4b2b;
+    }
+
+    .navbar .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    /* Container */
+    .container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    /* Header + Show Cart */
+    .header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .header-row h2 {
+        font-size: 26px;
+        font-weight: 600;
+        color: #ff4b2b;
+        margin: 0;
+    }
+
+    .show-cart {
+        padding: 8px 18px;
+        background-color: #ff4b2b;
+        color: #fff;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 14px;
+        text-decoration: none; /* no underline */
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .show-cart:hover {
+        background-color: #ff6a4a;
+        transform: translateY(-1px);
+    }
+
+    .info p {
+        font-size: 14px;
+        margin: 3px 0;
+    }
+
+    /* Menu Cards */
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 20px;
+    }
+
+    .menu-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .menu-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+
+    .menu-card h3 {
+        font-size: 18px;
+        color: #ff4b2b;
+        margin-bottom: 8px;
+    }
+
+    .menu-card p {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .menu-card .price-availability {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+    .menu-card button {
+        padding: 6px 14px;
+        background-color: #ff4b2b;
+        border: none;
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        color: #fff;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .menu-card button:hover {
+        background-color: #ff6a4a;
+        transform: translateY(-1px);
+    }
+</style>
 </head>
 <body>
+
+    <!-- Navbar -->
     <div class="navbar">
         <a href="{% url 'delivery:index' %}" class="logo">Meal Mate</a>
         <div class="nav-links">
-            <a href="{% url 'delivery:cusdisplay_res' username %}">View Restaurants</a>
+            <a href="{% url 'delivery:cusdisplay_res' username %}">Restaurants</a>
             <a href="{% url 'delivery:sign_in' %}">Sign In</a>
             <a href="{% url 'delivery:sign_up' %}">Sign Up</a>
         </div>
     </div>
-</body>
-</html>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Menu - {{res.res_name}}</title>
-    </head>
-    <body>
-        <h2>Menu for {{res.res_name}}</h2>
-        <p>Address: {{res.address}}</p>
-        <p>Category: {{res.Food_cat}}</p>
-        <p>Rating: {{res.rating}}</p>
-        <a href="{% url 'delivery:show_cart' username %}">Show Cart</a>
 
-        <table border="1" style="width: 100vw;">
-            <tr>
-                <th>Item Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Availability</th>
-                <th>Category</th>
-                <th>Action</th>
-            </tr>
+    <div class="container">
+
+        <!-- Header + Show Cart -->
+        <div class="header-row">
+            <h2>Menu for {{res.res_name}}</h2>
+            <a href="{% url 'delivery:show_cart' username %}" class="show-cart">Show Cart</a>
+        </div>
+
+        <!-- Restaurant Info -->
+        <div class="info">
+            <p><b>Address:</b> {{res.address}}</p>
+            <p><b>Category:</b> {{res.Food_cat}}</p>
+            <p><b>Rating:</b> ⭐ {{res.rating}}</p>
+        </div>
+
+        <!-- Menu Cards -->
+        <div class="menu-grid">
             {% for item in menu %}
-            <tr>
-                <td>{{ item.item_name }}</td>
-                <td>{{ item.description }}</td>
-                <td>{{ item.price }}</td>
-                <td>
-                    {% if item.is_available %} Available {% else %} Not Available {% endif %}
-                </td>
-                <td>{{ item.category }}</td>
-                <td>
-                    <form method="POST" action="{% url 'delivery:add_cart' item.id username %}">
-                        {% csrf_token %}
-                        <button type="submit" onclick="return confirm('Are you sure you want to add to cart?')">Add to Cart</button>
-                    </form>
-                </td>
-            </tr>
+            <div class="menu-card">
+                <h3>{{ item.item_name }}</h3>
+                <p>{{ item.description }}</p>
+                <div class="price-availability">
+                    <span>₹ {{ item.price }}</span>
+                    <span>{% if item.is_available %} Available {% else %} Not Available {% endif %}</span>
+                </div>
+                <p><b>Category:</b> {{ item.category }}</p>
+                <form method="POST" action="{% url 'delivery:add_cart' item.id username %}">
+                    {% csrf_token %}
+                    <button type="submit" onclick="return confirm('Add to cart?')">Add to Cart</button>
+                </form>
+            </div>
             {% endfor %}
-        </table>
-    </body>
+        </div>
+    </div>
+</body>
 </html>

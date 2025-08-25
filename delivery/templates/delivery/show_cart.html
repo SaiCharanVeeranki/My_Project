@@ -3,40 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <title>Meal Mate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Internal CSS for the navigation bar */
         body {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
         }
 
+        /* Navbar */
         .navbar {
-            background-color: #343a40;
-            color: white;
-            padding: 15px 30px;
+            background: #fff;
+            color: #333;
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .navbar .logo {
             font-size: 24px;
-            font-weight: bold;
-            color: #ffc107;
+            font-weight: 600;
+            color: #ff4b2b;
             text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 25px;
         }
 
         .navbar .nav-links a {
-            color: white;
+            color: #333;
             text-decoration: none;
-            margin-left: 20px;
-            font-size: 16px;
-            transition: color 0.3s ease;
+            font-size: 15px;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .navbar .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background: #ff4b2b;
+            transition: width 0.3s ease;
         }
 
         .navbar .nav-links a:hover {
-            color: #ffc107;
+            color: #ff4b2b;
+        }
+
+        .navbar .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Cart Section */
+        .cart-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .cart-container h3 {
+            margin-top: 0;
+            font-size: 22px;
+            color: #ff4b2b;
+            margin-bottom: 20px;
+        }
+
+        .cart-container ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        .cart-container ul li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 16px;
+        }
+
+        .cart-container p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Checkout Button */
+        .checkout-btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #ff4b2b;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background: #e03e1b;
+        }
+
+        /* Empty Cart */
+        .cart-container p:last-child {
+            font-style: italic;
+            color: #777;
         }
     </style>
 </head>
@@ -44,11 +128,12 @@
     <div class="navbar">
         <a href="{% url 'delivery:index' %}" class="logo">Meal Mate</a>
         <div class="nav-links">
-            <a href="{% url 'delivery:cusdisplay_res' username %}">View Restaurants</a>
+            <a href="{% url 'delivery:cusdisplay_res' username %}">Restaurants</a>
             <a href="{% url 'delivery:sign_in' %}">Sign In</a>
             <a href="{% url 'delivery:sign_up' %}">Sign Up</a>
         </div>
     </div>
+
     <div class="cart-container">
       <h3>Your Cart</h3>
       {% if items %}
@@ -58,11 +143,7 @@
         {% endfor %}
       </ul>
       <p><strong>Total Price:</strong> ${{ total_price }}</p>
-
-      <!-- Checkout Button -->
-      <a href="{%url 'delivery:checkout' username %}" class="checkout-btn"
-        >Proceed to Checkout</a
-      >
+      <a href="{% url 'delivery:checkout' username %}" class="checkout-btn">Proceed to Checkout</a>
       {% else %}
       <p>Your cart is empty.</p>
       {% endif %}

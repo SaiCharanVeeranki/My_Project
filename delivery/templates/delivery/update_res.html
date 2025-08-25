@@ -1,12 +1,102 @@
 {% extends 'delivery/base.html' %}
 {% block content %}
-<div style="max-width: 600px; margin: 40px auto;">
-    <h2>Update Restaurant - {{ res.res_name }}</h2>
+<style>
+  .gradient-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #9ae6b4 0%, #8fd3f4 50%, #b8a1ff 100%);
+    display: grid;
+    place-items: start center;
+    padding: 56px 16px;
+  }
+
+  .form-card {
+    width: 100%;
+    max-width: 460px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 18px 45px rgba(0,0,0,.12);
+    padding: 28px;
+  }
+
+  .form-title {
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    color: #1f2937;
+    margin: 6px 0 22px;
+  }
+
+  .field { margin-bottom: 14px; }
+
+  .field label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #374151;
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+    color: #111827;
+    transition: border-color .2s, box-shadow .2s;
+  }
+
+  .field textarea { min-height: 110px; resize: vertical; }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: #7c6cff;
+    box-shadow: 0 0 0 3px rgba(124,108,255,.15);
+    outline: none;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 12px 14px;
+    border: none;
+    border-radius: 12px;
+    background: #6d5df6;
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: transform .1s, box-shadow .2s, background .2s;
+  }
+  .btn-primary:hover {
+    background: #5b4cf2;
+    box-shadow: 0 8px 18px rgba(109,93,246,.25);
+  }
+  .btn-primary:active { transform: translateY(1px); }
+</style>
+
+<div class="gradient-page">
+  <div class="form-card">
+    <div class="form-title">✏️ Update Restaurant - {{ res.res_name }}</div>
 
     <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save Changes</button>
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="field">
+          {{ field.label_tag }}
+          {{ field }}
+          {% if field.errors %}
+            <div style="color: red; font-size: 12px;">{{ field.errors }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <button type="submit" class="btn-primary">Save Changes</button>
     </form>
+  </div>
 </div>
 {% endblock %}

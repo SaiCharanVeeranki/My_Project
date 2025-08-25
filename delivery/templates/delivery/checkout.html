@@ -1,38 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Checkout</title>
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  </head>
-  <body>
-    <h1>Checkout</h1>
-    <h2>Welcome, {{ username }}</h2>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout - Meal Mate</title>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        background-color: #f4f6f8;
+        color: #333;
+    }
 
-    {% if error %}
-    <p style="color: red">{{ error }}</p>
-    {% else %}
-    <table border="1">
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in cart_items %}
-        <tr>
-          <td>{{ item.item_name }}</td>
-          <td>₹{{ item.price }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    <h3>Total: ₹{{ total_price }}</h3>
+    /* Navbar */
+    .navbar {
+        background: #fff;
+        color: #333;
+        padding: 15px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
 
-    <button id="rzp-button">Pay with Razorpay</button>
-    {% endif %}
+    .navbar .logo {
+        font-size: 24px;
+        font-weight: 600;
+        color: #ff4b2b;
+        text-decoration: none;
+        letter-spacing: 0.5px;
+    }
+
+    .navbar .nav-links {
+        display: flex;
+        gap: 25px;
+    }
+
+    .navbar .nav-links a {
+        color: #333;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .navbar .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 0;
+        height: 2px;
+        background: #ff4b2b;
+        transition: width 0.3s ease;
+    }
+
+    .navbar .nav-links a:hover {
+        color: #ff4b2b;
+    }
+
+    .navbar .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    /* Container */
+    .container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    h1, h2 {
+        color: #ff4b2b;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    table th, table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    table th {
+        background-color: #ff4b2b;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    table tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    .total {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    #rzp-button {
+        padding: 12px 25px;
+        background-color: #ff4b2b;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    #rzp-button:hover {
+        background-color: #ff6a4a;
+        transform: translateY(-1px);
+    }
+
+    .error {
+        color: red;
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="{% url 'delivery:index' %}" class="logo">Meal Mate</a>
+        <div class="nav-links">
+            <a href="{% url 'delivery:cusdisplay_res' username %}">Restaurants</a>
+            <a href="{% url 'delivery:sign_in' %}">Sign In</a>
+            <a href="{% url 'delivery:sign_up' %}">Sign Up</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Checkout</h1>
+        <h2>Welcome, {{ username }}</h2>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% else %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>{{ item.item_name }}</td>
+                        <td>₹{{ item.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <p class="total">Total: ₹{{ total_price }}</p>
+
+            <button id="rzp-button">Pay with Razorpay</button>
+        {% endif %}
+    </div>
 
     <script>
       var options = {
@@ -44,7 +188,6 @@
         order_id: "{{ order_id }}", // Razorpay order ID
         handler: function (response) {
           alert("Payment Successful!");
-          // Redirect to the orders page
           window.location.href = "{% url 'delivery:orders' username %}";
         },
         prefill: {
@@ -53,7 +196,7 @@
           contact: "9999999999",
         },
         theme: {
-          color: "#528FF0",
+          color: "#ff4b2b",
         },
       };
       var rzp = new Razorpay(options);
@@ -63,5 +206,5 @@
         e.preventDefault();
       };
     </script>
-  </body>
+</body>
 </html>

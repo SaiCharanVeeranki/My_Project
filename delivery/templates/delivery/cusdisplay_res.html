@@ -3,84 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <title>Meal Mate</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        /* Internal CSS for the navigation bar */
+        /* Global */
         body {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
         }
 
+        a {
+            text-decoration: none;
+        }
+
+        /* Navbar */
         .navbar {
-            background-color: #343a40;
-            color: white;
-            padding: 15px 30px;
+            background: #fff;
+            color: #333;
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .navbar .logo {
             font-size: 24px;
-            font-weight: bold;
-            color: #ffc107;
-            text-decoration: none;
+            font-weight: 600;
+            color: #ff4b2b;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 25px;
         }
 
         .navbar .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            font-size: 16px;
-            transition: color 0.3s ease;
+            color: #333;
+            font-size: 15px;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .navbar .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background: #ff4b2b;
+            transition: width 0.3s ease;
         }
 
         .navbar .nav-links a:hover {
-            color: #ffc107;
+            color: #ff4b2b;
+        }
+
+        .navbar .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .container h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #ff4b2b;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        /* Cards */
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        }
+
+        .card img {
+            width: 80%;          /* smaller image size */
+            max-width: 180px;    /* limit max size */
+            height: 120px;       /* proportional height */
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 12px 0 5px;
+            color: #ff4b2b;
+        }
+
+        .card p {
+            font-size: 13px;
+            margin: 3px 0;
+            color: #555;
+        }
+
+        /* Buttons */
+        .card button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 18px;
+            background-color: #ff4b2b;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-weight: 500;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .card button:hover {
+            background-color: #ff6a4a;
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
+
+    <!-- Navbar -->
     <div class="navbar">
         <a href="{% url 'delivery:index' %}" class="logo">Meal Mate</a>
         <div class="nav-links">
-            <a href="{% url 'delivery:cusdisplay_res' username %}">View Restaurants</a>
+            <a href="{% url 'delivery:cusdisplay_res' username %}">Restaurants</a>
             <a href="{% url 'delivery:sign_in' %}">Sign In</a>
             <a href="{% url 'delivery:sign_up' %}">Sign Up</a>
         </div>
     </div>
+
+    <!-- Restaurants -->
+    <div class="container">
+        <h1>Hi {{username}}, Explore the Restaurants 🍴</h1>
+        <div class="grid">
+            {% for item in li %}
+            <div class="card">
+                <img src="{{ item.img }}" alt="Restaurant Image">
+                <h3>{{ item.res_name }}</h3>
+                <p><b>Category:</b> {{ item.Food_cat }}</p>
+                <p><b>Rating:</b> ⭐ {{ item.rating }}</p>
+                <p><b>Address:</b> {{ item.address }}</p>
+                <a href="{% url 'delivery:cusmenu' item.id username %}">
+                    <button>View Menu</button>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
 </body>
 </html>
-<div style="margin-top: 50px;"></div>
-<h1>Hii {{username}} Explore the Restarunts.....</h1>
-<table border="1">
-    <tr>
-        <th>Restarunt Name</th>
-        <th>Category</th>
-        <th>Rating</th>
-        <th>Image</th>
-        <th>Address</th>
-        <th>View Menu</th>
-    </tr>
-    {% for item in li %}
-    <tr>
-        <td>{{ item.res_name }}</td>
-        <td>{{ item.Food_cat }}</td>
-        <td>{{ item.rating }}</td>
-        <td>
-            <img
-            src="{{ item.img }}"
-            alt="Restarunt Image"
-            height="100"
-            width="100"
-            />
-        </td>
-        <td>{{ item.address }}</td>
-        <td>
-            <a href="{% url 'delivery:cusmenu' item.id username %}">
-                <button>View Menu</button>
-            </a>
-        </td>
-    </tr>
-    {% endfor %}   
-</table>

@@ -1,7 +1,88 @@
 {% extends 'delivery/base.html' %}
 
 {% block content %}
-<h3>Log in Successful</h3>
-<a href="{% url 'delivery:add_res' %}">Add Restarunts </a><br>
-<a href="{% url 'delivery:display_res' %}">Show Restarunts</a>
+<div class="admin-container">
+    <h1>Welcome, Admin 👋</h1>
+    <p class="subtitle">Manage your restaurants and monitor Meal Mate operations from here.</p>
+
+    <div class="admin-actions">
+        <div class="card">
+            <h3>Add Restaurants</h3>
+            <p>Add new restaurants to the Meal Mate platform.</p>
+            <a href="{% url 'delivery:add_res' %}" class="btn">Add Now</a>
+        </div>
+        <div class="card">
+            <h3>View Restaurants</h3>
+            <p>See all registered restaurants and manage them.</p>
+            <a href="{% url 'delivery:display_res' %}" class="btn">View</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .admin-container {
+        max-width: 1000px;
+        margin: 40px auto;
+        text-align: center;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    h1 {
+        color: #ff4b2b;
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 30px;
+    }
+
+    .admin-actions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        padding: 10px;
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 25px 20px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card h3 {
+        color: #333;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #ff4b2b;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+        background: #ff6a4a;
+    }
+</style>
 {% endblock %}

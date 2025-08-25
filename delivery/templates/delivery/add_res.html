@@ -1,24 +1,113 @@
 {% extends 'delivery/base.html' %}
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    
-    <label>Restarunt Name:</label>
-    {{ form.res_name }}
+<style>
+    body {
+        background: linear-gradient(135deg, #fff8f7, #ffeae6);
+    }
 
-    <label>Food Category:</label>
-    {{ form.Food_cat }}
+    .form-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+    }
 
-    <label>Rating:</label>
-    {{ form.rating }}
+    .form-card {
+        width: 100%;
+        max-width: 520px;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 35px 40px; /* Increased left/right padding equally */
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        animation: fadeIn 0.6s ease-in-out;
+    }
 
-    <label>Image:</label>
-    {{ form.img }}
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
 
-    <label>Address:</label>
-    {{ form.address }}
+    .form-card h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 26px;
+        color: #ff4b2b;
+        font-weight: 700;
+    }
 
-    <button type = "Submit">Submit</button>
+    .form-card label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #444;
+    }
 
-</form>
+    .form-card input,
+    .form-card select,
+    .form-card textarea {
+        width: 100%;
+        padding: 12px 16px; /* equal left and right padding */
+        margin-bottom: 18px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        font-size: 15px;
+        background: #fafafa;
+        transition: all 0.3s ease;
+        box-sizing: border-box; /* ensures padding doesn't overflow */
+    }
+
+    .form-card input:focus,
+    .form-card select:focus,
+    .form-card textarea:focus {
+        border-color: #ff4b2b;
+        background: #fff;
+        outline: none;
+        box-shadow: 0 0 6px rgba(255, 75, 43, 0.3);
+    }
+
+    .form-card button {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #ff4b2b, #ff9068);
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-card button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(255, 75, 43, 0.3);
+    }
+</style>
+
+<div class="form-wrapper">
+    <div class="form-card">
+        <h2>Add Restaurant</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <label>Restaurant Name:</label>
+            {{ form.res_name }}
+
+            <label>Food Category:</label>
+            {{ form.Food_cat }}
+
+            <label>Rating:</label>
+            {{ form.rating }}
+
+            <label>Image:</label>
+            {{ form.img }}
+
+            <label>Address:</label>
+            {{ form.address }}
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
 {% endblock %}

@@ -47,5 +47,5 @@ class Cart(models.Model):
         return sum(item.price for item in self.items.all())
     
     def __str__(self):
-        return f"{self.customers.username} {self.total_price()}"
+        return f"{self.customer.username} - {self.total_price()}"
     

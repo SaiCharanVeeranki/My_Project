@@ -1,20 +1,159 @@
-<form method="POST" action="{% url 'delivery:handle_signup' %}">
-    {% csrf_token %}
-    
-    <label>Username:</label>
-    <input type="text" name="username" required><br><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meal-Mate | Sign Up</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ffecd2, #fcb69f); /* same as sign-in */
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
 
-    <label>Password:</label>
-    <input type="password" name="password" required><br><br>
+    .bg-icons { 
+      position: absolute; top: 0; left: 0; 
+      width: 100%; height: 100%; 
+      pointer-events: none; z-index: 1; 
+    }
+    .bg-icons img { 
+      position: absolute; width: 80px; opacity: 0.15; 
+      animation: float 8s infinite ease-in-out; 
+    }
+    .bg-icons img:nth-child(1) { top: 10%; left: 15%; }
+    .bg-icons img:nth-child(2) { top: 30%; right: 20%; width: 100px; }
+    .bg-icons img:nth-child(3) { bottom: 20%; left: 25%; }
+    .bg-icons img:nth-child(4) { bottom: 10%; right: 10%; width: 90px; }
 
-    <label>Email:</label>
-    <input type="email" name="email" required><br><br>
+    @keyframes float { 
+      0% { transform: translateY(0); } 
+      50% { transform: translateY(-15px); } 
+      100% { transform: translateY(0); } 
+    }
 
-    <label>Mobile Number:</label>
-    <input type="mobile" name="mobile" required><br><br>
+    .form-container {
+      background: #fff;
+      padding: 40px 35px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 380px;
+      text-align: center;
+      animation: fadeIn 0.6s ease-in-out;
+      box-sizing: border-box;
+      position: relative;
+      z-index: 2;
+    }
 
-    <label>Address:</label>
-    <input type="address" name="address" required><br><br>
+    .form-container h2 {
+      margin-bottom: 25px;
+      font-size: 26px;
+      font-weight: bold;
+      color: #333;
+    }
 
-    <button >Sign Up</button>
-</form>
+    .form-container label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #444;
+      font-size: 14px;
+    }
+
+    .form-container input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 18px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+    }
+
+    .form-container input:focus {
+      border-color: #ff7043;
+      outline: none;
+    }
+
+    .form-container button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #ff7043;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .form-container button:hover {
+      background: #e65100;
+    }
+
+    .form-container p {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .form-container a {
+      color: #ff7043;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .form-container a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating food icons like sign-in -->
+  <div class="bg-icons">
+    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" alt="Pizza">
+    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046786.png" alt="Burger">
+    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" alt="Drink">
+    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046787.png" alt="Fries">
+  </div>
+
+  <!-- Sign Up Form -->
+  <div class="form-container">
+    <h2>Create Account</h2>
+    <form method="POST" action="{% url 'delivery:handle_signup' %}">
+      {% csrf_token %}
+
+      <label>Username</label>
+      <input type="text" name="username" required>
+
+      <label>Password</label>
+      <input type="password" name="password" required>
+
+      <label>Email</label>
+      <input type="email" name="email" required>
+
+      <label>Mobile Number</label>
+      <input type="text" name="mobile" required>
+
+      <label>Address</label>
+      <input type="text" name="address" required>
+
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <p>Already have an account? <a href="{% url 'delivery:sign_in' %}">Sign In</a></p>
+  </div>
+</body>
+</html>
